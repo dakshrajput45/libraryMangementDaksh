@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CookiesProvider, useCookies } from "react-cookie";
 import axios from "axios";
@@ -24,7 +24,7 @@ function AppContextProvider({ children }) {
 
 			if (response.data.exisitingUser.role === "admin") {
 				setIsAdmin(true);
-				alert("Login Success");
+				setCookie("adm", true, { path: "/" });
 
 				// navigate("/adminHomePage");
 			} else if (response.data.exisitingUser.role === "user") {
@@ -38,6 +38,12 @@ function AppContextProvider({ children }) {
 		} finally {
 			setLoading(false);
 		}
+	}
+
+	async function handleLogout() {
+		removeCookie("token");
+		removeCookie("adm");
+		navigate("/");
 	}
 
 	const getHomeData = async () => {
@@ -66,7 +72,6 @@ function AppContextProvider({ children }) {
 		}
 	};
 
-
 	const value = {
 		loading,
 		BASE_URL,
@@ -79,7 +84,9 @@ function AppContextProvider({ children }) {
 		items,
 		setItems,
 		getHomeData,
+		handleLogout,
 	};
+
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 export default AppContextProvider;

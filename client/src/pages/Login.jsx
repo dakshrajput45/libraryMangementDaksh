@@ -1,9 +1,8 @@
-import  { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 const Login = () => {
 	const { loading, setLoading, handleLogin, navigate } = useContext(AppContext);
-  console.log(loading);
 	const [formData, setFormData] = useState({
 		uid: "",
 		password: "",
