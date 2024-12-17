@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
 
 	try {
 		let { uid, password } = req.body;
-		// console.log(req.body);
+		console.log(req.body);
 
 		if (!uid || !password) {
 			return res.status(400).json({

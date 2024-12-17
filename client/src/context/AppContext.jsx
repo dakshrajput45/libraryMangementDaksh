@@ -9,6 +9,7 @@ function AppContextProvider({ children }) {
 	const [loading, setLoading] = useState(false);
 	// const [user, setUser] = useState({});
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [items, setItems] = useState([]);
 	const navigate = useNavigate();
 	const BASE_URL = "http://localhost:5500/api/v1";
 	const [cookies, setCookie, removeCookie] = useCookies();
@@ -19,8 +20,6 @@ function AppContextProvider({ children }) {
 		try {
 			const response = await axios.post(`${BASE_URL}/login`, data);
 			console.log("Login successful:", response.data);
-
-			setUser(response.data.exisitingUser);
 			setCookie("token", response.data.token, { path: "/" });
 
 			if (response.data.exisitingUser.role === "admin") {
@@ -32,7 +31,7 @@ function AppContextProvider({ children }) {
 				// navigate("/userHomePage");
 			}
 
-			// navigate("/dashboard");
+			navigate("/dashboard");
 		} catch (err) {
 			console.log("Login error:", err.response?.data || err.message);
 			alert(err.response?.data.message);
@@ -41,134 +40,46 @@ function AppContextProvider({ children }) {
 		}
 	}
 
-	// async function handleRegister(data) {
-	// 	setLoading(true);
-	// 	try {
-	// 		data.role = "User";
-	// 		const response = await axios.post(`${BASE_URL}/register`, data);
-	// 		console.log("Register:", response);
+	const getHomeData = async () => {
+		setLoading(true);
+		try {
+			const response = await axios.get(`${BASE_URL}/getAllItemByType`);
+			if (response.data.success) {
+				const fetchedItems = response.data.data.map((item) => ({
+					itemType: item.itemType,
+					name: item.name,
+					author: item.authorName || "N/A",
+					category: item.category,
+					status: item.availability ? "Available" : "Issued",
+					cost: `$${item.cost.toFixed(2)}`,
+					procurementDate: new Date(item.dateOfProcurement)
+						.toISOString()
+						.split("T")[0],
+				}));
+				setItems(fetchedItems);
+			}
+		} catch (err) {
+			console.error("Home Page error:", err.response?.data || err.message);
+			alert(err.response?.data.message || "Error fetching items");
+		} finally {
+			setLoading(false);
+		}
+	};
 
-	// 		navigate("/login");
-	// 	} catch (err) {
-	// 		console.error("Register error:", err.response?.data || err.message);
-	// 	} finally {
-	// 		setLoading(false);
-	// 	}
-	// }
 
-	// function handleLogout() {
-	// 	setLoading(true);
-	// 	try {
-	// 		setUser({});
-	// 		removeCookie("token");
-	// 		removeCookie("user");
-	// 		setIsAdmin(false);
-	// 		navigate("/login");
-
-	// 		console.log("User logged out successfully");
-	// 	} catch (err) {
-	// 		console.error("Logout error:", err);
-	// 	} finally {
-	// 		setLoading(false);
-	// 	}
-	// }
-
-	// async function getAllCars() {
-	// 	setLoading(true);
-	// 	try {
-	// 		const res = await axios.get(`${BASE_URL}/getallcars`);
-	// 		setCars(res.data);
-	// 		// console.log(res);
-	// 	} catch (err) {
-	// 		console.error("Error getting cars data", err);
-	// 	} finally {
-	// 		setLoading(false);
-	// 	}
-	// }
-
-	// async function addCar(carData) {
-	// 	try {
-	// 		carData.capacity = Number(carData.capacity);
-	// 		carData.rentPerHour = Number(carData.rentPerHour);
-	// 		const response = await axios.post(`${BASE_URL}/addCar`, carData);
-	// 		console.log(response);
-
-	// 		if (response.statusText === "OK") {
-	// 			return response;
-	// 		} else {
-	// 			console.error("Failed to add car.");
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error:", error);
-	// 	}
-	// }
-	// async function editCar(carData) {
-	// 	console.log(carData);
-
-	// 	try {
-	// 		carData.capacity = Number(carData.capacity);
-	// 		carData.rentPerHour = Number(carData.rentPerHour);
-	// 		const response = await axios.post(`${BASE_URL}/editcar`, carData);
-
-	// 		if (response.status === 200) {
-	// 			return response;
-	// 		} else {
-	// 			console.error("Failed to edir car.");
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error:", error);
-	// 	}
-	// }
-	// async function makeBooking(bookingData) {
-	// 	console.log(bookingData);
-	// 	setLoading(true);
-	// 	try {
-	// 		const res = await axios.post(`${BASE_URL}/bookCar`, bookingData);
-	// 		setCars(res.data);
-	// 		console.log(res);
-	// 	} catch (err) {
-	// 		console.error("Error getting cars data", err);
-	// 	} finally {
-	// 		setLoading(false);
-	// 	}
-	// }
-	// async function getAllBookings() {
-	// 	setLoading(true);
-	// 	try {
-	// 		const res = await axios.get(`${BASE_URL}/getAllBookings`);
-	// 		setBookings(res.data);
-	// 	} catch (err) {
-	// 		console.error("Error getting booking data", err);
-	// 	} finally {
-	// 		setLoading(false);
-	// 	}
-	// }
-
-	// const value = {
-	// 	loading,
-	// 	setLoading,
-	// 	user,
-	// 	setUser,
-	// 	isAdmin,
-	// 	setIsAdmin,
-	// 	navigate,
-	// 	handleLogin,
-	// 	handleRegister,
-	// 	handleLogout,
-	// 	cars,
-	// 	setCars,
-	// 	getAllCars,
-	// 	cookies,
-	// 	setCookie,
-	// 	removeCookie,
-	// 	addCar,
-	// 	makeBooking,
-	// 	getAllBookings,
-	// 	bookings,
-	// 	setBookings,
-	// 	editCar,
-	// };
-	const value = { loading, setLoading, isAdmin, setIsAdmin, navigate, cookies };
+	const value = {
+		loading,
+		BASE_URL,
+		setLoading,
+		isAdmin,
+		setIsAdmin,
+		navigate,
+		cookies,
+		handleLogin,
+		items,
+		setItems,
+		getHomeData,
+	};
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 export default AppContextProvider;
