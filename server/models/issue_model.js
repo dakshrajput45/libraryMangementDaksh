@@ -8,14 +8,12 @@ const issueSchema = new mongoose.Schema({
         unique: true // Unique identifier for the issue
     },
     bookId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Item',
-        required: true // Reference to the Book model
+        type: String,
+        required: true,
     },
-    membershipId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Membership',
-        required: true // Reference to the Membership model
+    uid: {
+        type: String,
+        required: true,
     },
     dateOfIssue: {
         type: Date,

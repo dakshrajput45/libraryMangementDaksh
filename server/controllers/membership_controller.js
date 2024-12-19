@@ -100,7 +100,7 @@ exports.getAllMembership = async (req, res) => {
     console.log("Get All Memberships");
 
     try {
-        const memberships = await Membership.find();  
+        const memberships = await Membership.find();
 
         if (memberships.length === 0) {
             return res.status(404).json({

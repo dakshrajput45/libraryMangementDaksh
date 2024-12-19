@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 exports.tokenCheck = (req, res, next) => {
 	try {
-		const token = req.body.token || req.cookies.token;
+		const token = req.body.token ;
 		if (!token)
 			return res.status(401).json({
 				success: false,

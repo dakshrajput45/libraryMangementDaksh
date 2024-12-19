@@ -6,12 +6,12 @@ const TopNavBar = () => {
 	return (
 		<nav className="bg-gray-800 text-white px-6 py-4">
 			<div className="flex justify-between items-center">
-				<h1
+				<button
 					className="text-lg font-bold"
 					onClick={() => navigate("/dashboard")}
 				>
 					Home
-				</h1>
+				</button>
 				<div className="flex space-x-4">
 					{cookies.adm && (
 						<a href="/maintenance" className="hover:text-gray-300">

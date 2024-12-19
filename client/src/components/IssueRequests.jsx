@@ -1,28 +1,54 @@
-
+import Spinner from '../assets/Spinner';
+import { useContext,useEffect } from "react";
+import { AppContext } from "../context/AppContext";
 
 const IssueRequests = () => {
+  const { issueRequests,getIssueReuest, loading } = useContext(AppContext);
+
+  useEffect(()=>{
+    if(issueRequests.length == 0){
+      getIssueReuest();
+    }
+  },[issueRequests,getIssueReuest]);
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md mb-6">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Issue Requests</h2>
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 text-left border-b">Membership Id</th>
-            <th className="py-2 px-4 text-left border-b">Name of Book/Movie</th>
-            <th className="py-2 px-4 text-left border-b">Requested Date</th>
-            <th className="py-2 px-4 text-left border-b">Request Fulfilled Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Add request data dynamically here */}
-          <tr>
-            <td className="py-2 px-4 border-b">001</td>
-            <td className="py-2 px-4 border-b">The Great Gatsby</td>
-            <td className="py-2 px-4 border-b">2024-12-10</td>
-            <td className="py-2 px-4 border-b">2024-12-12</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="max-w-7xl p-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-semibold text-center mb-6">Issue Request</h1>
+
+      {loading ? (
+        <div className="flex justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <table className="min-w-full bg-white border">
+          <thead>
+            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th className="py-3 px-6 text-left">Issue Id</th>
+              <th className="py-3 px-6 text-left">Name</th>
+              <th className="py-3 px-6 text-left">Requested Date</th>
+              <th className="py-3 px-6 text-left">Request Fulfilled</th>
+            </tr>
+          </thead>
+
+          <tbody className="text-gray-600 text-sm font-light">
+            {issueRequests.map((item, index) => (
+              <tr
+                key={index}
+                className="border-b border-gray-200 hover:bg-gray-100"
+              >
+                <td className="py-3 px-6 text-left whitespace-nowrap">
+                  {item.id}
+                </td>
+                <td className="py-3 px-6 text-left">{item.name}</td>
+                <td className="py-3 px-6 text-left">{item.requestedDate}</td>
+                <td className="py-3 px-6 text-left">
+                  {item.requestFulfilled ? "Yes" : "No"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

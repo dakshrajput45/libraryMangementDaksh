@@ -2,11 +2,8 @@ import { useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
 const Dashboard = () => {
-	const { items, getHomeData, navigate, loading } = useContext(AppContext);
-
-	useEffect(() => {
-		getHomeData();
-	}, []);
+	const { items, loading } = useContext(AppContext);
+	
 
 	return (
 		<div>
@@ -21,6 +18,7 @@ const Dashboard = () => {
 					<table className="w-[95%] mx-auto bg-white border">
 						<thead>
 							<tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+								<th className="py-3 px-6 text-left">Item ID</th>
 								<th className="py-3 px-6 text-left">Item Type</th>
 								<th className="py-3 px-6 text-left">Name</th>
 								<th className="py-3 px-6 text-left">Author</th>
@@ -36,6 +34,9 @@ const Dashboard = () => {
 									key={index}
 									className="border-b border-gray-200 hover:bg-gray-100"
 								>
+									<td className="py-3 px-6 text-left whitespace-nowrap">
+										{item.itemId}
+									</td>
 									<td className="py-3 px-6 text-left whitespace-nowrap">
 										{item.itemType}
 									</td>

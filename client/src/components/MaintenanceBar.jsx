@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import UserManagement from "./UserManagement.jsx";
 const MaintenanceBar = () => {
 	const [dropdowns, setDropdowns] = useState({
 		membership: false,
@@ -9,6 +9,11 @@ const MaintenanceBar = () => {
 	const [selectedSection, setSelectedSection] = useState(null); // State to track the selected section
 
 	const toggleDropdown = (section) => {
+		setDropdowns({
+			membership: false,
+			booksMovies: false,
+			userManagement: false,
+		});
 		setDropdowns((prev) => ({
 			...prev,
 			[section]: !prev[section],
@@ -30,7 +35,7 @@ const MaintenanceBar = () => {
 					<nav>
 						<ul>
 							{/* Membership */}
-							<li className="border-b border-gray-200 transition ease-in-out ">
+							<li className="border-b border-gray-200">
 								<button
 									onClick={() => {
 										toggleDropdown("membership");
@@ -40,7 +45,13 @@ const MaintenanceBar = () => {
 									Membership
 									<span>{dropdowns.membership ? "▲" : "▼"}</span>
 								</button>
-								{dropdowns.membership && (
+								<div
+									className={`overflow-hidden transition-all duration-300 ease-in-out ${
+										dropdowns.membership
+											? "max-h-40 opacity-100"
+											: "max-h-0 opacity-0"
+									}`}
+								>
 									<div className="px-3">
 										<button
 											className="block w-full text-blue-600 py-1 text-left hover:underline p-1 rounded-md hover:bg-blue-100"
@@ -55,21 +66,27 @@ const MaintenanceBar = () => {
 											Update
 										</button>
 									</div>
-								)}
+								</div>
 							</li>
 
 							{/* Books/Movies */}
 							<li className="border-b border-gray-200">
 								<button
 									onClick={() => {
-										toggleDropdown("booksMovies"); // Set "booksMovies" as selected
+										toggleDropdown("booksMovies");
 									}}
 									className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex justify-between items-center"
 								>
 									Books/Movies
 									<span>{dropdowns.booksMovies ? "▲" : "▼"}</span>
 								</button>
-								{dropdowns.booksMovies && (
+								<div
+									className={`overflow-hidden transition-all duration-300 ease-in-out ${
+										dropdowns.booksMovies
+											? "max-h-40 opacity-100"
+											: "max-h-0 opacity-0"
+									}`}
+								>
 									<div className="px-3">
 										<button
 											className="block w-full text-blue-600 py-1 text-left hover:underline p-1 rounded-md hover:bg-blue-100"
@@ -84,7 +101,7 @@ const MaintenanceBar = () => {
 											Update
 										</button>
 									</div>
-								)}
+								</div>
 							</li>
 
 							{/* User Management */}
@@ -98,7 +115,13 @@ const MaintenanceBar = () => {
 									User Management
 									<span>{dropdowns.userManagement ? "▲" : "▼"}</span>
 								</button>
-								{dropdowns.userManagement && (
+								<div
+									className={`overflow-hidden transition-all duration-300 ease-in-out ${
+										dropdowns.userManagement
+											? "max-h-40 opacity-100"
+											: "max-h-0 opacity-0"
+									}`}
+								>
 									<div className="px-3">
 										<button
 											className="block w-full text-blue-600 py-1 text-left hover:underline p-1 rounded-md hover:bg-blue-100"
@@ -113,7 +136,7 @@ const MaintenanceBar = () => {
 											Update
 										</button>
 									</div>
-								)}
+								</div>
 							</li>
 						</ul>
 					</nav>
@@ -140,16 +163,8 @@ const MaintenanceBar = () => {
 							Update Books/Movies Section
 						</h2>
 					)}
-					{selectedSection === "addUser" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Add User Section
-						</h2>
-					)}
-					{selectedSection === "updateUser" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Update User Section
-						</h2>
-					)}
+					{selectedSection === "addUser" && <UserManagement update={false} />}
+					{selectedSection === "updateUser" && <UserManagement update={true} />}
 
 					{!selectedSection && (
 						<h2 className="text-2xl font-bold text-gray-700">
