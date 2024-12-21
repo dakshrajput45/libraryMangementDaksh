@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import UserManagement from "./UserManagement.jsx";
+import AddMembership from "./AddMembership.jsx";
+import UpdateMembership from "./UpdateMembership.jsx";
+import AddItem from "./AddItem.jsx";
+import UpdateItem from "./UpdateItem.jsx";
+
 const MaintenanceBar = () => {
 	const [dropdowns, setDropdowns] = useState({
 		membership: false,
@@ -142,35 +147,23 @@ const MaintenanceBar = () => {
 					</nav>
 				</aside>
 
-				<div className="flex-1 flex items-center justify-center p-8">
-					{selectedSection === "addMembership" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Add Membership Section
-						</h2>
-					)}
-					{selectedSection === "updateMembership" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Update Membership Section
-						</h2>
-					)}
-					{selectedSection === "addItems" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Add Books/Movies Section
-						</h2>
-					)}
-					{selectedSection === "updateItems" && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Update Books/Movies Section
-						</h2>
-					)}
-					{selectedSection === "addUser" && <UserManagement update={false} />}
-					{selectedSection === "updateUser" && <UserManagement update={true} />}
+				<div className="flex-1 flex justify-center h-[80%] p-8">
+					<div className="w-full max-w-lg bg-white rounded-lg ">
+						{selectedSection === "addMembership" && <AddMembership />}
+						{selectedSection === "updateMembership" && <UpdateMembership />}
+						{selectedSection === "addItems" && <AddItem />}
+						{selectedSection === "updateItems" && <UpdateItem />}
+						{selectedSection === "addUser" && <UserManagement update={false} />}
+						{selectedSection === "updateUser" && (
+							<UserManagement update={true} />
+						)}
 
-					{!selectedSection && (
-						<h2 className="text-2xl font-bold text-gray-700">
-							Select an option from the sidebar
-						</h2>
-					)}
+						{!selectedSection && (
+							<h2 className="text-2xl font-bold text-gray-700 text-center">
+								Select an option from the sidebar
+							</h2>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

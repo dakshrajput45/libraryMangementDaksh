@@ -1,117 +1,232 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
 const UpdateItem = () => {
-  const [itemType, setItemType] = useState('Book'); // Default selection
-  const [itemName, setItemName] = useState('');
-  const [serialNo, setSerialNo] = useState('');
-  const [status, setStatus] = useState('Pending');
-  const [date, setDate] = useState('');
+	const { updateItem } = useContext(AppContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ itemType, itemName, serialNo, status, date });
-    alert('Item updated successfully!');
-  };
+	const [formData, setFormData] = useState({
+		bid: "",
+		itemType: "",
+		name: "",
+		authorName: "",
+		dateOfProcurement: "",
+		quantity: "",
+		category: "",
+		availability: "",
+		cost: "",
+	});
 
-  return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Update Book/Movie</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Radio Buttons */}
-        <div className="flex items-center justify-center space-x-4">
-          <label className="flex items-center space-x-2">
-            <input
-              type="radio"
-              value="Book"
-              checked={itemType === 'Book'}
-              onChange={() => setItemType('Book')}
-              className="form-radio text-blue-500"
-            />
-            <span>Book</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input
-              type="radio"
-              value="Movie"
-              checked={itemType === 'Movie'}
-              onChange={() => setItemType('Movie')}
-              className="form-radio text-blue-500"
-            />
-            <span>Movie</span>
-          </label>
-        </div>
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	};
 
-        {/* Book/Movie Name */}
-        <div>
-          <label className="block text-gray-700 font-medium">Book/Movie Name:</label>
-          <input
-            type="text"
-            placeholder="Enter name"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
-            required
-            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const {
+			bid,
+			itemType,
+			name,
+			authorName,
+			dateOfProcurement,
+			quantity,
+			category,
+			availability,
+			cost,
+		} = formData;
 
-        {/* Serial Number */}
-        <div>
-          <label className="block text-gray-700 font-medium">Serial No:</label>
-          <input
-            type="text"
-            placeholder="Enter serial number"
-            value={serialNo}
-            onChange={(e) => setSerialNo(e.target.value)}
-            required
-            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+		const data = { bid: bid };
+		if (itemType !== "") data.itemType = itemType;
+		if (name !== "") data.name = name;
+		if (authorName !== "") data.authorName = authorName;
+		if (dateOfProcurement !== "") data.dateOfProcurement = dateOfProcurement;
+		if (quantity !== "") data.quantity = Number(quantity);
+		if (category !== "") data.category = category;
+		if (availability !== "") data.availability = availability === "true";
+		if (cost !== "") data.cost = Number(cost);
 
-        {/* Status Dropdown */}
-        <div>
-          <label className="block text-gray-700 font-medium">Status:</label>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-          </select>
-        </div>
+		updateItem(data);
+		// console.log("Updated Data:", data);
+	};
 
-        {/* Date Picker */}
-        <div>
-          <label className="block text-gray-700 font-medium">Date:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition duration-300"
-          >
-            Update
-          </button>
-        </div>
-      </form>
-      {/* Log Out Button */}
-      <button
-        onClick={() => alert('Logged Out!')}
-        className="w-full mt-4 bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition duration-300"
-      >
-        Log Out
-      </button>
-    </div>
-  );
+	return (
+		<div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+			<h2 className="text-2xl font-semibold text-center mb-6">Update Item</h2>
+			<form onSubmit={handleSubmit}>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Item ID
+					</label>
+					<input
+						type="text"
+						name="bid"
+						value={formData.bid}
+						onChange={handleChange}
+						placeholder="Enter Item ID"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						required
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Select Item Type
+					</label>
+					<div className="flex items-center space-x-4">
+						<label className="flex items-center space-x-2">
+							<input
+								type="radio"
+								name="itemType"
+								value="Book"
+								checked={formData.itemType === "Book"}
+								onChange={handleChange}
+								className="text-blue-600"
+							/>
+							<span>Book</span>
+						</label>
+						<label className="flex items-center space-x-2">
+							<input
+								type="radio"
+								name="itemType"
+								value="Movie"
+								checked={formData.itemType === "Movie"}
+								onChange={handleChange}
+								className="text-blue-600"
+							/>
+							<span>Movie</span>
+						</label>
+					</div>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Item Name
+					</label>
+					<input
+						type="text"
+						name="name"
+						value={formData.name}
+						onChange={handleChange}
+						placeholder="Enter Name"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Author/Director Name
+					</label>
+					<input
+						type="text"
+						name="authorName"
+						value={formData.authorName}
+						onChange={handleChange}
+						placeholder="Enter Author/Director Name"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Date of Procurement
+					</label>
+					<input
+						type="date"
+						name="dateOfProcurement"
+						value={formData.dateOfProcurement}
+						onChange={handleChange}
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Quantity
+					</label>
+					<input
+						type="number"
+						name="quantity"
+						value={formData.quantity}
+						onChange={handleChange}
+						min="1"
+						placeholder="Enter Quantity"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Category
+					</label>
+					<select
+						name="category"
+						value={formData.category}
+						onChange={handleChange}
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					>
+						<option value="">Select Category</option>
+						<option value="science">Science</option>
+						<option value="economics">Economics</option>
+						<option value="fiction">Fiction</option>
+						<option value="children">Children</option>
+						<option value="personal development">Personal Development</option>
+					</select>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Availability
+					</label>
+					<select
+						name="availability"
+						value={formData.availability}
+						onChange={handleChange}
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					>
+						<option value="true">Available</option>
+						<option value="false">Not Available</option>
+					</select>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Cost
+					</label>
+					<input
+						type="number"
+						name="cost"
+						value={formData.cost}
+						onChange={handleChange}
+						step="0.50"
+						placeholder="Enter Cost"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div className="flex justify-between mt-6">
+					<button
+						type="button"
+						onClick={() =>
+							setFormData({
+								bid: "",
+								itemType: "",
+								name: "",
+								authorName: "",
+								dateOfProcurement: "",
+								quantity: "",
+								category: "",
+								availability: "",
+								cost: "",
+							})
+						}
+						className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500"
+					>
+						Reset
+					</button>
+					<button
+						type="submit"
+						className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+					>
+						Confirm
+					</button>
+				</div>
+			</form>
+		</div>
+	);
 };
 
 export default UpdateItem;

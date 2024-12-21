@@ -64,6 +64,8 @@ exports.login = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
+	console.log("Add User Called");
+
 	try {
 		let { role, name, password } = req.body;
 		let uid;
@@ -117,6 +119,7 @@ exports.addUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
+	console.log("Update User Called");
 	try {
 		const { uid, role, name, status, password } = req.body;
 
@@ -162,6 +165,7 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
+	console.log("Logout Called");
 	try {
 		console.log("Logout called");
 

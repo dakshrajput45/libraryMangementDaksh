@@ -32,10 +32,6 @@ const membershipSchema = new mongoose.Schema({
         enum: ['active', 'expired', 'suspended'], 
         default: 'active' 
     },
-    amountPending: {
-        type: Number,
-        min: [0, 'Amount pending cannot be negative'] 
-    }
 }, {
     timestamps: true 
 });
