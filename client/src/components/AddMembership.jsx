@@ -105,11 +105,11 @@ const AddMembership = () => {
 	};
 
 	return (
-		<div className="max-w mx-auto p-6 bg-white shadow-lg rounded-lg">
+		<div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
 			<h2 className="text-2xl font-semibold text-center mb-6">
 				Add Membership
 			</h2>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className="space-y-4">
 				<div className="mb-4">
 					<label className="block text-sm font-medium text-gray-700">
 						First Name

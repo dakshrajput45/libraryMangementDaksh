@@ -90,10 +90,11 @@ exports.getOverdueIssue = async (req, res) => {
 exports.issueItem = async (req, res) => {
 	console.log("Issue Item Called");
 	try {
-		const { uid, bid, issueDate, returnDate, remarks } = req.body;
+		const { itemId, issueDate, returnDate, remarks } = req.body;
+		const {uid} = req.user;
 		console.log(req.body);
 
-		const item = await Item.findOne({ bid: bid });
+		const item = await Item.findOne({ bid: itemId });
 
 		if (!item) {
 			return res.status(404).json({
@@ -110,7 +111,7 @@ exports.issueItem = async (req, res) => {
 			const issueRequest = new Issue({
 				issueId: issueId,
 				uid: uid,
-				bookId: bid,
+				bookId: itemId,
 				nameOfItem: item.name || "Unknown Book",
 				status: "requested",
 				requestedDate: new Date(),
@@ -163,7 +164,8 @@ exports.issueItem = async (req, res) => {
 exports.returnItem = async (req, res) => {
 	console.log("Return Issue Called");
 	try {
-		const { itemId, uid } = req.body;
+		const { itemId} = req.body;
+		const {uid} = req.user;
 
 		// Step 1: Find the corresponding issue entry by itemId and uid
 		const issue = await Issue.findOne({

@@ -10,17 +10,17 @@ import MasterListOfMemberships from "./components/MasterListOfMemberships.jsx";
 import IssueRequests from "./components/IssueRequests.jsx";
 import MasterListMovies from "./components/MasterListItems.jsx";
 import Dashboard from "./pages/dashboard.jsx";
-import MaintenanceBar from "./components/MaintenanceBar.jsx";
 import TopNavBar from "./components/TopNavBar.jsx";
+import MaintenanceBar from "./pages/MaintenanceBar.jsx";
 import ReportsBar from "./pages/ReportsBar.jsx";
-import TransactionBar from "./components/TransactionBar.jsx";
+import TransactionBar from "./pages/TransactionBar.jsx";
 import { AppContext } from "./context/AppContext.jsx";
 function App() {
 	const location = useLocation();
 	const { items, getHomeData } = useContext(AppContext);
 	
 	useEffect(() => {
-		  if (items.length === 0) {
+		if (items.length === 0) {
 			getHomeData(); // Fetch only if not already done
 		  }
 		}, [items, getHomeData]);

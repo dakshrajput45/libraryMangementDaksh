@@ -290,6 +290,44 @@ function AppContextProvider({ children }) {
 		}
 	};
 
+	//transactions
+	const issueItem = async (data) => {
+		// console.log(data);
+		setLoading(true);
+		try {
+			data.token = cookies.token;
+			const response = await axios.post(`${BASE_URL}/issueItem`, data);
+			if (response.data.success === "success") {
+				alert(
+					`Item issued succesfully: ${response.data.data.issueId}`
+				);
+			}
+		} catch (err) {
+			console.error(err);
+			alert(err);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const returnItem = async (data) => {
+		// console.log(data);
+		setLoading(true);
+		try {
+			data.token = cookies.token;
+			const response = await axios.post(`${BASE_URL}/returnItem`, data);
+			if (response.data.success === "success") {
+				alert(
+					`Item returned succesfully: ${response.data.data.issueId}`
+				);
+			}
+		} catch (err) {
+			console.error(err);
+			alert(err);
+		} finally {
+			setLoading(false);
+		}
+	};
 	const value = {
 		loading,
 		BASE_URL,
@@ -323,6 +361,7 @@ function AppContextProvider({ children }) {
 		updateMembership,
 		addItem,
 		updateItem,
+		issueItem,returnItem
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

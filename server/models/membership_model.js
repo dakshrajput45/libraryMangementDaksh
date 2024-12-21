@@ -14,6 +14,10 @@ const membershipSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    aadhar: {
+        type: String,
+        match: [/^\d{12}$/, 'Please enter a valid 10-digit contact number'] 
+    },
     contactNo: {
         type: String,
         match: [/^\d{10}$/, 'Please enter a valid 10-digit contact number'] 
