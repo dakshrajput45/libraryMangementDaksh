@@ -14,7 +14,6 @@ const IssueRequests = () => {
   return (
     <div className="max-w-7xl p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-semibold text-center mb-6">Issue Request</h1>
-
       {loading ? (
         <div className="flex justify-center">
           <Spinner />

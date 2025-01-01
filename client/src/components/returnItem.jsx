@@ -36,7 +36,6 @@ const ItemReturnForm = () => {
       returnDate,
       remarks,
     };
-
     returnItem(data);
     // Process form data submission (e.g., API call)
     console.log("Form Data Submitted:", data);

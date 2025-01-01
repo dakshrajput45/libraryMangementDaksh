@@ -18,7 +18,6 @@ const TopNavBar = () => {
 							Maintenance
 						</a>
 					)}
-
 					<a href="/reports" className="hover:text-gray-300">
 						Reports
 					</a>

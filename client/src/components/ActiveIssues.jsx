@@ -10,7 +10,6 @@ const ActiveIssues = () => {
             getActiveIssue();
         }
     }, []);
-
     return (
         <div className="max-w-7xl p-6 bg-white shadow-lg rounded-lg">
             <h1 className="text-3xl font-semibold text-center mb-6">Active Issues</h1>

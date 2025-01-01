@@ -14,7 +14,6 @@ const BookAvailability = () => {
                 item.itemId.toLowerCase() === searchQuery.toLowerCase() ||
                 (item.author && item.author.toLowerCase() === searchQuery.toLowerCase())
         );
-
         if (result) {
             setBook(result);
         } else {

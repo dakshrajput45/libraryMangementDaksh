@@ -14,7 +14,6 @@ const AddMembership = () => {
 		startDate: `${today}`,
 		endDate: "",
 	});
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevData) => ({

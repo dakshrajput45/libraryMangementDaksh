@@ -13,7 +13,6 @@ const UserManagement = ({ update }) => {
 		isAdmin: false,
 		password: "",
 	});
-
 	const togglePasswordVisibility = () => {
 		setShowPassword((prev) => !prev);
 	};

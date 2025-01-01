@@ -28,7 +28,6 @@ const ItemIssueForm = () => {
       alert("Please fill out all required fields.");
       return;
     }
-
     const data = {
     
       itemId,

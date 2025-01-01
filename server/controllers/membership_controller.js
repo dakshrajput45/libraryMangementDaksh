@@ -32,7 +32,6 @@ exports.addMembership = async (req, res) => {
 		const count = await Membership.countDocuments();
 
 		const newMembershipId = `MBR-${(count + 1).toString().padStart(6, "0")}`;
-
 		const newMembership = new Membership({
 			membershipId: newMembershipId,
 			firstName,
