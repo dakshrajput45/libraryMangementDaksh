@@ -248,3 +248,44 @@ exports.returnItem = async (req, res) => {
 		});
 	}
 };
+
+
+exports.payFine = async (req, res) => {
+	console.log("Pay Fine Called");
+	try {
+		const { issueId } = req.body; 
+		console.log(issueId);
+		const issue = await Issue.findOne({ issueId: issueId });
+		if (!issue) {
+			return res.status(404).json({
+				success: "failed",
+				message: "Issue not found",
+			});
+		}
+		if (issue.fineAmount === 0 || issue.finePaid) {
+			return res.status(400).json({
+				success: "failed",
+				message: "No fine to pay or fine already paid",
+			});
+		}
+		issue.finePaid = true;
+		await issue.save();
+
+		return res.status(200).json({
+			success: "success",
+			message: "Fine paid successfully",
+			data: {
+				issueId: issue.issueId,
+				fineAmount: issue.fineAmount,
+				status: issue.status,
+				finePaid: issue.finePaid,
+			},
+		});
+	} catch (e) {
+		console.error("Error paying fine:", e);
+		return res.status(500).json({
+			success: false,
+			message: "Server Error",
+		});
+	}
+};

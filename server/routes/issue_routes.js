@@ -6,6 +6,7 @@ const {
 	getRequestIssue,
 	returnItem,
 	getOverdueIssue,
+	payFine
 } = require("../controllers/issue_controller");
 const { tokenCheck } = require("../middlewares/auth");
 
@@ -14,5 +15,6 @@ router.get("/activeIssue", getActiveIssues);
 router.get("/requestIssue", getRequestIssue);
 router.get("/overdueIssue", getOverdueIssue);
 router.post("/returnItem", tokenCheck, returnItem);
+router.patch("/payFine", tokenCheck, payFine);
 
 module.exports = router;
