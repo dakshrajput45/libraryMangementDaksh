@@ -67,6 +67,7 @@ function AppContextProvider({ children }) {
 					procurementDate: new Date(item.dateOfProcurement)
 						.toISOString()
 						.split("T")[0],
+					quantity:item.quantity,
 				}));
 				setItems(fetchedItems);
 			}

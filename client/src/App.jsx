@@ -23,7 +23,7 @@ function App() {
 		if (items.length === 0) {
 			getHomeData(); // Fetch only if not already done
 		  }
-		}, [items, getHomeData]);
+		}, [items]);
 
 	return (
 		<div>

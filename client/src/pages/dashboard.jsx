@@ -18,14 +18,15 @@ const Dashboard = () => {
 					<table className="w-[95%] mx-auto bg-white border">
 						<thead>
 							<tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-								<th className="py-3 px-6 text-left">Item ID</th>
-								<th className="py-3 px-6 text-left">Item Type</th>
-								<th className="py-3 px-6 text-left">Name</th>
+								<th className="py-3 px-6 text-left text-white bg-black">Item ID</th>
+								<th className="py-3 px-6 text-left bg-gray-50">Item Type</th>
+								<th className="py-3 px-6 text-left text-white bg-black">Name</th>
 								<th className="py-3 px-6 text-left">Author</th>
-								<th className="py-3 px-6 text-left">Category</th>
+								<th className="py-3 px-6 text-left text-white bg-black">Category</th>
 								<th className="py-3 px-6 text-left">Status</th>
-								<th className="py-3 px-6 text-left">Cost</th>
+								<th className="py-3 px-6 text-left text-white bg-black">Cost</th>
 								<th className="py-3 px-6 text-left">Procurement Date</th>
+								<th className="py-3 px-6 text-left text-white bg-black">Quantity</th>
 							</tr>
 						</thead>
 						<tbody className="text-gray-600 text-sm font-light">
@@ -34,20 +35,21 @@ const Dashboard = () => {
 									key={index}
 									className="border-b border-gray-200 hover:bg-gray-100"
 								>
-									<td className="py-3 px-6 text-left whitespace-nowrap">
+									<td className="py-3 px-6 text-left whitespace-nowrap text-white bg-black">
 										{item.itemId}
 									</td>
 									<td className="py-3 px-6 text-left whitespace-nowrap">
 										{item.itemType}
 									</td>
-									<td className="py-3 px-6 text-left">{item.name}</td>
+									<td className="py-3 px-6 text-left text-white bg-black">{item.name}</td>
 									<td className="py-3 px-6 text-left">{item.author}</td>
-									<td className="py-3 px-6 text-left">{item.category}</td>
+									<td className="py-3 px-6 text-left text-white bg-black">{item.category}</td>
 									<td className="py-3 px-6 text-left">{item.status}</td>
-									<td className="py-3 px-6 text-left">{item.cost}</td>
+									<td className="py-3 px-6 text-left text-white bg-black">{item.cost}</td>
 									<td className="py-3 px-6 text-left">
 										{item.procurementDate}
 									</td>
+									<td className="py-3 px-6 text-left text-white bg-black">{item.quantity}</td>
 								</tr>
 							))}
 						</tbody>

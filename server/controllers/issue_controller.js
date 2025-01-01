@@ -107,6 +107,7 @@ exports.issueItem = async (req, res) => {
 		const issueId = `ISD-${String(issueCount + 1).padStart(6, "0")}`; // ISD + 6-digit serial
 
 		// If the book is unavailable, create an Issue Request
+		console.log(`Quantity :- ${item.quantity}`);
 		if (item.quantity < 1) {
 			const issueRequest = new Issue({
 				issueId: issueId,

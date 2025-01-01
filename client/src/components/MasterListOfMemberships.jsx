@@ -10,7 +10,7 @@ const MasterListOfMemberships = () => {
     if(masterMemberships.length == 0){
       getMemberships();
     }
-  },[masterMemberships,getMemberships]);
+  },[]);
 
   return (
       <div className="max-w-7xl p-6 bg-white shadow-lg rounded-lg">

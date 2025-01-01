@@ -11,7 +11,7 @@ const MaintenanceBar = () => {
 		booksMovies: false,
 		userManagement: false,
 	});
-	const [selectedSection, setSelectedSection] = useState(null); // State to track the selected section
+	const [selectedSection, setSelectedSection] = useState("addMembership"); // State to track the selected section
 
 	const toggleDropdown = (section) => {
 		setDropdowns({

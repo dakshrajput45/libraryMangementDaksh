@@ -26,7 +26,7 @@ const AddItem = () => {
 		e.preventDefault();
 		const { itemType, name, authorName, category, date, quantity, cost } =
 			formData;
-		let data = {
+		const data = {
 			itemType,
 			name,
 			authorName,
@@ -141,7 +141,7 @@ const AddItem = () => {
 						name="date"
 						value={formData.date}
 						onChange={handleChange}
-						className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="mt-1 p-2 w-full border border-gray-300 rounded-md focnpus:outline-none focus:ring-2 focus:ring-blue-500"
 						required
 					/>
 				</div>

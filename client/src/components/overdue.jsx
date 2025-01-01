@@ -9,7 +9,7 @@ const OverdueIssues = () => {
         if (overdue.length == 0) {
             getOverDue();
         }
-    }, [overdue, getOverDue]);
+    }, []);
 
     return (
         <div className="max-w-7xl p-6 bg-white shadow-lg rounded-lg">
