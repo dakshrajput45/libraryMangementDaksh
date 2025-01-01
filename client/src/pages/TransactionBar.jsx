@@ -4,7 +4,7 @@ import ItemReturnForm from "../components/returnItem";
 import BookAvailability from "../components/bookAvailable";
 
 const TransactionBar = () => {
-  const [selectedOption, setSelectedOption] = useState("issueBook");
+  const [selectedOption, setSelectedOption] = useState("isAvailable");
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
